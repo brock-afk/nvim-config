@@ -5,6 +5,7 @@ local set = vim.opt
 set.number = true
 set.relativenumber = true
 set.shiftwidth = 4
+set.clipboard = "unnamedplus"
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
