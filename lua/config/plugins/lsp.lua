@@ -18,6 +18,14 @@ return {
             require("lspconfig").lua_ls.setup {}
             require("lspconfig").zls.setup {}
 
+            -- code action key maps
+            vim.keymap.set('n', 'grn', vim.lsp.buf.rename)
+            vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
+            vim.keymap.set('n', 'grr', vim.lsp.buf.references)
+            vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+
+
             vim.api.nvim_create_autocmd("LspAttach", {
                 callback = function(args)
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
