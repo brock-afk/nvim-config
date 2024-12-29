@@ -5,8 +5,10 @@ local set = vim.opt
 set.number = true
 set.relativenumber = true
 set.shiftwidth = 4
+set.tabstop = 4
 set.clipboard = "unnamedplus"
 set.mouse = ""
+set.expandtab = true
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
@@ -22,11 +24,13 @@ vim.keymap.set('n', 'grn', vim.lsp.buf.rename)
 vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
 vim.keymap.set('n', 'grr', vim.lsp.buf.references)
 vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+
 
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking text',
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
     callback = function()
-	vim.highlight.on_yank()
+        vim.highlight.on_yank()
     end
 })
