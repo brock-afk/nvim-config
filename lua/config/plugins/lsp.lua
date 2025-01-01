@@ -15,9 +15,20 @@ return {
             },
         },
         config = function()
-            require("lspconfig").lua_ls.setup {}
-            require("lspconfig").zls.setup {}
+            local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+            require("lspconfig").lua_ls.setup { capabilities = capabilities }
+            require("lspconfig").zls.setup { capabilities = capabilities }
+            require 'lspconfig'.rust_analyzer.setup {
+                capabilities = capabilities,
+                settings = {
+                    ['rust-analyzer'] = {
+                        diagnostics = {
+                            enable = false,
+                        }
+                    }
+                }
+            }
             -- code action key maps
             vim.keymap.set('n', 'grn', vim.lsp.buf.rename)
             vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
