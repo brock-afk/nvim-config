@@ -17,6 +17,8 @@ return {
         config = function()
             local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+
+            require 'lspconfig'.ruff.setup { capabilities = capabilities }
             require("lspconfig").lua_ls.setup { capabilities = capabilities }
             require("lspconfig").zls.setup { capabilities = capabilities }
             require("lspconfig").rust_analyzer.setup {
@@ -49,6 +51,7 @@ return {
                             buffer = args.buf,
                             callback = function()
                                 vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+                                vim.lsp.buf.code_action({ context = { only = { "source.organizeImports" } }, apply = true })
                             end,
                         })
                     end
