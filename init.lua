@@ -10,7 +10,6 @@ set.clipboard = "unnamedplus"
 set.mouse = ""
 set.expandtab = true
 
-vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
@@ -36,9 +35,38 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
 })
 
-vim.keymap.set("n", "<space>tt", function()
-    vim.cmd.vnew()
-    vim.cmd.term()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, 15)
-end)
+local function activate_closest_venv()
+    local function find_closest_venv_dir(start_dir)
+        local path = vim.fn.fnamemodify(start_dir, ":p")
+        while path ~= "/" do
+            if vim.fn.isdirectory(path .. "/venv") == 1 then
+                return path .. "/venv"
+            end
+            path = vim.fn.fnamemodify(path, ":h") -- Move up one directory
+        end
+        return nil
+    end
+
+    local closest_venv = find_closest_venv_dir(vim.fn.getcwd())
+    if closest_venv then
+        local activate_script = closest_venv .. "/bin/activate"
+        if vim.fn.filereadable(activate_script) == 1 then
+            vim.cmd("let $VIRTUAL_ENV='" .. closest_venv .. "'")
+            vim.cmd("let $PATH=join([$VIRTUAL_ENV .. '/bin', $PATH], ':')")
+        end
+    end
+end
+
+activate_closest_venv()
+
+local function activate_poetry_venv()
+    if vim.fn.executable("poetry") == 1 then
+        local poetry_venv = vim.fn.systemlist("poetry env info -p")[1]
+        if poetry_venv and vim.fn.isdirectory(poetry_venv) == 1 then
+            vim.cmd("let $VIRTUAL_ENV='" .. poetry_venv .. "'")
+            vim.cmd("let $PATH=join([$VIRTUAL_ENV .. '/bin', $PATH], ':')")
+        end
+    end
+end
+
+activate_poetry_venv()
