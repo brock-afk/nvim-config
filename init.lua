@@ -47,6 +47,9 @@ local function activate_closest_venv()
             if vim.fn.isdirectory(path .. "/venv") == 1 then
                 return path .. "/venv"
             end
+            if vim.fn.isdirectory(path .. "/.venv") == 1 then
+                return path .. "/.venv"
+            end
             path = vim.fn.fnamemodify(path, ":h") -- Move up one directory
         end
         return nil
