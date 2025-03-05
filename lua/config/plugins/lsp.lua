@@ -33,12 +33,14 @@ return {
                     }
                 }
             }
+
             -- code action key maps
             vim.keymap.set('n', 'grn', vim.lsp.buf.rename)
             vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
             vim.keymap.set('n', 'grr', vim.lsp.buf.references)
             vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+            vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, { noremap = true, silent = true })
 
 
             vim.api.nvim_create_autocmd("LspAttach", {
