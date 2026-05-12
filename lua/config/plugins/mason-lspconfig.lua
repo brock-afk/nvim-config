@@ -3,7 +3,7 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     config = function()
         require("mason-lspconfig").setup({
-            ensure_installed = { "lua_ls", "pyright", "zls", "intelephense", "rust_analyzer", "eslint" },
+            ensure_installed = { "lua_ls", "pyright", "zls", "ols", "intelephense", "rust_analyzer", "eslint" },
             automatic_installation = true,
         })
     end
