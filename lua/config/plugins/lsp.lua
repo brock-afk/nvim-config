@@ -18,7 +18,6 @@ return {
             local capabilities = require('blink.cmp').get_lsp_capabilities()
 
             require("lspconfig").eslint.setup { capabilities = capabilities }
-            require("lspconfig").ruff.setup { capabilities = capabilities }
             require("lspconfig").intelephense.setup { capabilities = capabilities }
             require("lspconfig").pyright.setup { capabilities = capabilities }
             require("lspconfig").lua_ls.setup { capabilities = capabilities }
