@@ -1,3 +1,5 @@
+vim.opt.runtimepath:append("/home/brock/.local/share/nvim/site")
+
 require("config.lazy")
 
 local set = vim.opt

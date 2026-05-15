@@ -17,14 +17,9 @@ return {
         config = function()
             local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-            require("lspconfig").eslint.setup { capabilities = capabilities }
-            require("lspconfig").intelephense.setup { capabilities = capabilities }
-            require("lspconfig").pyright.setup { capabilities = capabilities }
-            require("lspconfig").lua_ls.setup { capabilities = capabilities }
-            require("lspconfig").zls.setup { capabilities = capabilities }
-            require("lspconfig").ols.setup { capabilities = capabilities }
-            require("lspconfig").rust_analyzer.setup {
-                capabilities = capabilities,
+            vim.lsp.config('*', { capabilities = capabilities })
+
+            vim.lsp.config('rust_analyzer', {
                 settings = {
                     ['rust-analyzer'] = {
                         diagnostics = {
@@ -32,7 +27,9 @@ return {
                         }
                     }
                 }
-            }
+            })
+
+            vim.lsp.enable({ 'eslint', 'intelephense', 'pyright', 'lua_ls', 'zls', 'ols', 'rust_analyzer' })
 
             -- code action key maps
             vim.keymap.set('n', 'grn', vim.lsp.buf.rename)
